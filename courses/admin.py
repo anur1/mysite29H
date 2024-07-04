@@ -4,7 +4,7 @@ from .models import Course, Category
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug", "description", "isActive", )
+    list_display = ("title", "slug", "description", "isActive", "category")
     list_display_links = ("title", "slug",)
     readonly_fields = ("slug",)
     list_filter = ("title", "slug", "description", "isActive", )
