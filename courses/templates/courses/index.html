@@ -25,9 +25,13 @@
                    
                 </div>
         
-                <div class="col-9" style="border:dotted; background:#BE6EFD">
+                <div class="col-9" style="border:dotted; background:#BE6EFD"> 
+                
                 <!--Content-->
                 <h2>Bütün aktif kurslarımıza gözatın. </h2>
+                        {% if courses|length == 0 %}
+                                <div class="alert alert-warning">Kurs bulunamadı.</div>
+                        {% endif %}
 
                         {% for course  in courses %} 
                                          {% include 'courses/partials/_course.html' %}
