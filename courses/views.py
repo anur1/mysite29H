@@ -110,7 +110,7 @@ def details(request, kurs_id):
 
 
 def getCoursesByCategory(request, slug):
-    kurslar  = Course.objects.filter( isActive=True)#category__slug = slug,
+    kurslar  = Course.objects.filter( categories__slug= slug, isActive = True)#category__slug = slug,
     kategoriler = Category.objects.all()
 
     return render(request, 'courses/index.html', {
