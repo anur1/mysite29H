@@ -19,7 +19,7 @@ class Course(models.Model):
     isActive = models.BooleanField()
     slug = models.SlugField(default = "", null=False, blank=True,  unique=True, db_index=True)
     #category = models.ForeignKey(Category, default = 1, on_delete=models.CASCADE, related_name="kurslar")
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category,)
     #def save(self, *args, **kwargs):
         #self.slug=slugify(self.title)
         #super().save(args, kwargs)
