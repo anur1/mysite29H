@@ -29,19 +29,18 @@
                 
                 <!--Content-->
                 <h2>Bütün aktif kurslarımıza gözatın. </h2>
-                        {% if courses|length == 0 %}
+                        {{page_obj.paginator.object_list}}
+                        {% if page_obj.object_list|length == 0%}
                                 <div class="alert alert-warning">Kurs bulunamadı.</div>
                         {% endif %}
 
-                        {% for course  in courses %} 
+                        {% for course  in page_obj.object_list %} 
                                          {% include 'courses/partials/_course.html' %}
- 
-
-
                         {% endfor %}
 
 
-                                        </div>
+                        {% include "courses/partials/_pagination.html" %}
+                        </div>
                 </div>
         </div>
 {% endblock  %}  

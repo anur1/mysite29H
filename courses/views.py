@@ -45,15 +45,16 @@ def getCoursesByCategory(request, slug):
 
     
     paginator = Paginator(kurslar, 3) #filtrelenmiş kursları her sayfada 5'er adet göster
-    page = request.GET.get('page', 1) # ?=query'den sayfa numarasını al
-    kurslar = paginator.get_page(page)
+    page = request.GET.get('page', 1) #query'den gelen page number'ı kullan
+    page_obj = paginator.page(page) #page e düşen kursları pageob'e at
     
-    print(paginator.count) #toplam ürün sayısı
-    print(paginator.num_pages) # toplam sayfa sayısı
+    print(page_obj.paginator.count) #toplam ürün sayısı
+    print(page_obj.paginator.num_pages) # toplam sayfa sayısı
 
 
     return render(request, 'courses/index.html', {
         'categories': kategoriler,
         'courses': kurslar,
+        'page_obj': page_obj,
         'seciliKategori': slug
     })
