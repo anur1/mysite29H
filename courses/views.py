@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    kurslar = Course.objects.filter(isActive=1)
+    kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Category.objects.all()
 #    for kurs in db["courses"]:
 #         if kurs["isActive"] == True: 
@@ -26,18 +26,9 @@ def search(request):
         return redirect("/kurslar")  
 
     
-    paginator = Paginator(kurslar, 3) #filtrelenmiş kursları her sayfada 5'er adet göster
-    page = request.GET.get('page', 1) #query'den gelen page number'ı kullan
-    page_obj = paginator.page(page) #page e düşen kursları pageob'e at
-    
-    print(page_obj.paginator.count) #toplam ürün sayısı
-    print(page_obj.paginator.num_pages) # toplam sayfa sayısı
-
-
-    return render(request, 'courses/list.html', {
+    return render(request, 'courses/search.html', {
         'categories': kategoriler,
         'courses': kurslar,
-        'page_obj': page_obj,
     })
 
 
@@ -69,7 +60,7 @@ def getCoursesByCategory(request, slug):
     print(page_obj.paginator.num_pages) # toplam sayfa sayısı
 
 
-    return render(request, 'courses/index.html', {
+    return render(request, 'courses/list.html', {
         'categories': kategoriler,
         'courses': kurslar,
         'page_obj': page_obj,
