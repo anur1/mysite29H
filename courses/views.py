@@ -17,6 +17,12 @@ def index(request):
         'courses': kurslar
     })
 
+
+def add_course(request, ):
+    return render(request, "courses/add-course.html")
+
+
+
 def search(request):
     if "q" in request.GET and request.GET["q"] !="":
         q = request.GET["q"]
