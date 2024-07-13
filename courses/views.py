@@ -31,6 +31,22 @@ def add_course(request, ):
             isActive = True
         if isHome == "on":
             isHome = True
+
+        #POST bilgilerinin validasyonu
+        error = False
+        msg = ""
+
+        if title == "":
+            error = True
+            msg += "İsim bilgisi girmek zorunludur." 
+
+        if len (title) < 5:
+            error = True
+            msg += "Başlık en az 5 karakter olmalıdır"
+
+        if error: 
+            return render(request, "courses/add-course.html", {"error":True, "msg": msg})
+
         #POST'tan gelen bilgileri db'ye kaydet
         kurs = Course (title=title, description=description, imageUrl = imageUrl, slug=slug, isActive= isActive, isHome=isHome)
         kurs.save()
