@@ -31,9 +31,8 @@ def add_course(request, ):
                           slug = form.cleaned_data["slug"])
             kurs.save()
             return redirect ("/kurslar")
-
-
-    form = CourseAddForm()
+    else: #GET form
+        form = CourseAddForm()
 
     return render(request, "courses/add-course.html", {"form": form})
 
