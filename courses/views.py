@@ -21,6 +21,18 @@ def index(request):
 
 
 def add_course(request, ):
+    if request.method == "POST": 
+        form = CourseAddForm(request.POST)
+
+        if form.is_valid(): 
+            kurs = Course(title = form.cleaned_data["title"], 
+                          description = form.cleaned_data["description"],
+                          imageUrl = form.cleaned_data["imageUrl"],
+                          slug = form.cleaned_data["slug"])
+            kurs.save()
+            return redirect ("/kurslar")
+
+
     form = CourseAddForm()
 
     return render(request, "courses/add-course.html", {"form": form})
