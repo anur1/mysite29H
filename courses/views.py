@@ -2,6 +2,8 @@ from datetime import date, datetime
 from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+
+from courses.forms import CourseAddForm
 from .models import Course, Category
 from django.core.paginator import Paginator
 
@@ -19,41 +21,9 @@ def index(request):
 
 
 def add_course(request, ):
-    if request.method == "POST":
-        #POST'tan gelen bilgileri al
-        title = request.POST["title"]
-        description = request.POST["description"]
-        imageUrl = request.POST["imageUrl"]
-        slug = request.POST["slug"]
-        isActive = request.POST.get ("isActive", False)
-        isHome = request.POST.get("isHome", False)
-        if isActive =="on": 
-            isActive = True
-        if isHome == "on":
-            isHome = True
+    form = CourseAddForm()
 
-        #POST bilgilerinin validasyonu
-        error = False
-        msg = ""
-
-        if title == "":
-            error = True
-            msg += "İsim bilgisi girmek zorunludur." 
-
-        if len (title) < 5:
-            error = True
-            msg += "Başlık en az 5 karakter olmalıdır"
-
-        if error: 
-            return render(request, "courses/add-course.html", {"error":True, "msg": msg})
-
-        #POST'tan gelen bilgileri db'ye kaydet
-        kurs = Course (title=title, description=description, imageUrl = imageUrl, slug=slug, isActive= isActive, isHome=isHome)
-        kurs.save()
-        print(title, description, imageUrl, isActive, isHome)
-        #POST işlemi sonrası kullanıcıyı anasayfaya geri gönder
-        return redirect("/kurslar") 
-    return render(request, "courses/add-course.html")
+    return render(request, "courses/add-course.html", {"form": form})
 
 
 
