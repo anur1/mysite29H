@@ -16,9 +16,34 @@
                         {% if error %}
                         <div class="alert alert-danger">{{msg}}</div>
                         {% endif %}
-                        <form action="{% url 'add_course' %}" method="POST">
+                        <form action="{% url 'add_course' %}" method="POST" novalidate>
                             {% csrf_token %}
-                            {{form.as_p }}
+
+                            <div class="mb-3">
+                                <label class= "form-label"for="{{form.title.id_for_label}}">Title</label>
+                                {{form.title}}
+                            </div>
+
+
+                            
+                            <div class="mb-3">
+                                <label class= "form-label"for="{{form.description.id_for_label}}">Description</label>
+                                {{form.description}}
+                            </div>
+
+                            
+                            <div class="mb-3">
+                                <label class= "form-label"for="{{form.imageUrl.id_for_label}}">imageUrl</label>
+                                {{form.imageUrl}}
+                            </div>
+
+                            
+                            <div class="mb-3">
+                                <label class= "form-label"for="{{form.slug.id_for_label}}">Slug</label>
+                                {{form.slug}}
+                            </div>
+
+
                             <button type="submit" class= "btn btn-primary" >Kaydet</button>
                         </form>
                     </div>
