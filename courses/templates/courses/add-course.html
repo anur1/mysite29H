@@ -16,32 +16,64 @@
                         {% if error %}
                         <div class="alert alert-danger">{{msg}}</div>
                         {% endif %}
+
+
                         <form action="{% url 'add_course' %}" method="POST" novalidate>
                             {% csrf_token %}
 
-                            <div class="mb-3">
+
+
+                            {% for field in form %}
+                            <div class="mb-3 {% if form.field.errors %}invalid{% endif %}">
+                                {% if field.errors %}<div class="alert alert-danger">{{field.errors}}</div>{% endif %}
+                                
+                                <label class= "form-label"for="{{field.id_for_label}}">{{field.label}}</label>
+                                {{field}}
+                            </div>
+                            {% endfor %}
+
+
+
+
+                            
+
+                       <!-- for yerine aşağıdaki gibi her bir text kutusu konulabilir.                         
+                       
+                       
+
+                            <div class="mb-3 {% if form.title.errors %}invalid{% endif %}">
+                                {{form.title.errors}}
                                 <label class= "form-label"for="{{form.title.id_for_label}}">Title</label>
                                 {{form.title}}
                             </div>
 
 
                             
-                            <div class="mb-3">
+                            <div class="mb-3 {% if form.description.errors %}invalid{% endif %}">
+                                {{form.description.errors}}
                                 <label class= "form-label"for="{{form.description.id_for_label}}">Description</label>
                                 {{form.description}}
                             </div>
 
                             
-                            <div class="mb-3">
+                            <div class="mb-3 {% if form.imageUrl.errors %}invalid{% endif %}">
+                                {{form.imageUrl.errors}}
                                 <label class= "form-label"for="{{form.imageUrl.id_for_label}}">imageUrl</label>
                                 {{form.imageUrl}}
                             </div>
 
                             
-                            <div class="mb-3">
+                            <div class="mb-3 {% if form.slug.errors %}invalid{% endif %}">
+                                {{form.slug.errors}}
                                 <label class= "form-label"for="{{form.slug.id_for_label}}">Slug</label>
                                 {{form.slug}}
                             </div>
+
+                       
+                       
+                       
+                       -->
+
 
 
                             <button type="submit" class= "btn btn-primary" >Kaydet</button>
