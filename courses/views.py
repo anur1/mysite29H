@@ -38,6 +38,20 @@ def add_course(request, ):
 
     return render(request, "courses/add-course.html", {"form": form})
 
+def course_list (request):
+    kurslar = Course.objects.all()
+
+    return render(request, 'courses/course-list.html', {
+        'courses': kurslar
+    })
+
+def course_edit (request, id):
+    pass
+    # kurslar = Course.objects.get(pk=id)
+    # return render(request, 'courses/course-edit.html', {
+    #     'courses': kurslar
+    # })
+
 
 
 def search(request):
