@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput, Textarea, Widget
+from django.forms import NullBooleanSelect, Select, SelectMultiple, TextInput, Textarea, Widget, CheckboxInput, RadioSelect
 
 from courses.models import Course
 
@@ -54,5 +54,35 @@ class CourseAddForm (forms.ModelForm):
 
 
 
+
+class CourseEditForm (forms.ModelForm):
+    class Meta: 
+        model = Course
+        fields  = '__all__'
+        #fields = ('title', 'description', 'imageUrl', 'slug',)
+        labels = {
+            "title": "Kurs Başlığı",
+            "description": "Kurs Açıklaması",
+            "imageUrl": "Resim Urlsi",
+            "slug": "Uzantı adı",
+        }
+        widgets = {
+            "title": TextInput(attrs={"class":"form-control"}),
+            "description": Textarea(attrs={"class":"form-control"}),
+            "imageUrl": TextInput(attrs={"class":"form-control"}),
+            "slug": TextInput(attrs={"class":"form-control"}),
+            "categories": SelectMultiple(attrs={"class":"form-control"}),
+            #"isActive":    NullBooleanSelect(attrs={"class":"form-control"}),  
+           
+        }
+        error_messages= {
+            "title": {
+                "required": "kurs başlığı girmelisiniz.",
+                "max_length": "en fazla 50 karakter girebilirsiniz."
+            },
+            "description": {
+                "required": "kurs için bir açıklama girmelisiniz.",
+}
+        }
 
 

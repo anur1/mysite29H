@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpRespons
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from courses.forms import CourseAddForm
+from courses.forms import CourseAddForm, CourseEditForm
 from .models import Course, Category
 from django.core.paginator import Paginator
 
@@ -46,11 +46,16 @@ def course_list (request):
     })
 
 def course_edit (request, id):
-    pass
-    # kurslar = Course.objects.get(pk=id)
-    # return render(request, 'courses/course-edit.html', {
-    #     'courses': kurslar
-    # })
+    course = get_object_or_404(Course, pk=id)
+    if request.method == 'POST': #post ise güncelle ve listeye dön
+        form = CourseEditForm(request.POST, instance=course)
+        form.save()
+        return redirect ( "course_list")
+    else: #get ise bilgileri görüntüle
+        form = CourseEditForm(instance=course)
+
+
+    return render(request, 'courses/edit-course.html', {"form": form})
 
 
 
