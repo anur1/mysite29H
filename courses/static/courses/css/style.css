@@ -13,5 +13,6 @@ body {
 }
 
 .invalid input, .invalid textarea {
-    border-color: #dc3545;
+    border-color: red;
+    border-width:2mm;
 }
