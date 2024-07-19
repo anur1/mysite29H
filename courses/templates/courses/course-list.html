@@ -8,9 +8,6 @@
 {% block  page_title %}Tüm Kurs Listesi{% endblock %}
 
 
-
-
-
 {% block content %}
         <div class="container mt-3">
                 <div class="row">
@@ -35,6 +32,8 @@
                                                         <td>{{course.slug}}</td>
                                                         <td>
                                                                 <a href="{% url 'course_edit' course.id %}" class= "btn btn-primary btn-sm">Güncelle</a>
+                                                                <a href="{% url 'course_delete' course.id %}" class= "btn btn-danger btn-sm">Sil</a>
+
                                                         </td>
                                                 </tr>
                                         {% endfor %}

@@ -47,6 +47,7 @@ def course_list (request):
 
 def course_edit (request, id):
     course = get_object_or_404(Course, pk=id)
+
     if request.method == 'POST': #post ise güncelle ve listeye dön
         form = CourseEditForm(request.POST, instance=course)
         form.save()
@@ -56,6 +57,21 @@ def course_edit (request, id):
 
 
     return render(request, 'courses/edit-course.html', {"form": form})
+
+
+
+
+def course_delete (request, id):
+    course = get_object_or_404(Course, pk=id)
+
+    if request.method == "POST":
+        course.delete()
+        return redirect("course_list")
+
+
+
+    return render(request, 'courses/delete-course.html', {"course": course})
+
 
 
 
