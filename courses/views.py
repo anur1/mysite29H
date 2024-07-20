@@ -73,7 +73,16 @@ def course_delete (request, id):
     return render(request, 'courses/delete-course.html', {"course": course})
 
 
-
+def upload_image (request):
+    if request.method=="POST":
+        uploaded_image = request.FILES['image']
+        print(uploaded_image)
+        print(uploaded_image.name)
+        print(uploaded_image.size)
+        print(uploaded_image.content_type)
+        return render (request, "courses/success.html")
+    
+    return render(request, "courses/upload-image.html")
 
 def search(request):
     if "q" in request.GET and request.GET["q"] !="":
