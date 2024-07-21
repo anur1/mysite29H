@@ -93,6 +93,7 @@ def handle_uploaded_files (file): #file'ı dizin içine kaydetme methodu
     file_name, file_extension = os.path.splitext(file.name)
     new_name = file_name + "_" + str(number) + file_extension  #resim_0001.jpg
 
+    #deploy için temp/ ---> /home/kursapp/mysite29H/temp olarak değişmesi gerekiyor
     with open("temp/" + new_name, "wb+") as destination:
         for chunk in file.chunks():
             destination.write(chunk)
