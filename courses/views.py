@@ -7,6 +7,8 @@ from courses.forms import CourseAddForm, CourseEditForm
 from .models import Course, Category
 from django.core.paginator import Paginator
 
+import random, os
+
 
 def index(request):
     kurslar = Course.objects.filter(isActive=1, isHome=1)
@@ -75,14 +77,25 @@ def course_delete (request, id):
 
 def upload_image (request):
     if request.method=="POST":
-        uploaded_image = request.FILES['image']
-        print(uploaded_image)
-        print(uploaded_image.name)
-        print(uploaded_image.size)
-        print(uploaded_image.content_type)
-        return render (request, "courses/success.html")
+        uploaded_image = request.FILES['image'] #request'ten forma eklenen "image" adlı dosyayı getir. 
+        #print(uploaded_image)
+        #print(uploaded_image.name)
+        #print(uploaded_image.size)
+        #print(uploaded_image.content_type)
+        handle_uploaded_files (uploaded_image)
+        return render (request, "courses/success.html") #başarı mesajı
     
     return render(request, "courses/upload-image.html")
+
+
+def handle_uploaded_files (file): #file'ı dizin içine kaydetme methodu
+    number = random.randint(1, 100) 
+    file_name, file_extension = os.path.splitext(file.name)
+    new_name = file_name + "_" + str(number) + file_extension  #resim_0001.jpg
+
+    with open("temp/" + new_name, "wb+") as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
 
 def search(request):
     if "q" in request.GET and request.GET["q"] !="":
