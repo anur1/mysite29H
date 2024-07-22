@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from courses.forms import CourseAddForm, CourseEditForm, UploadForm
-from .models import Course, Category
+from .models import Course, Category, UploadModel
 from django.core.paginator import Paginator
 
 import random, os
@@ -85,8 +85,10 @@ def upload_image (request):
         #uploaded_images = request.FILES.getlist("images") #yüklenen dosyaların listesini al
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-            uploaded_image=request.FILES["image"]
-            handle_uploaded_files (uploaded_image)
+            model = UploadModel(image=request.FILES["image"])
+            model.save()
+            # uploaded_image=request.FILES["image"]
+            # handle_uploaded_files (uploaded_image)
 
             # for file in uploaded_images: 
             #     handle_uploaded_files (file)
@@ -97,15 +99,19 @@ def upload_image (request):
     return render(request, "courses/upload-image.html", {"form":form})
 
 
-def handle_uploaded_files (file): #file'ı dizin içine kaydetme methodu
-    number = random.randint(1, 100) 
-    file_name, file_extension = os.path.splitext(file.name)
-    new_name = file_name + "_" + str(number) + file_extension  #resim_0001.jpg
+# def handle_uploaded_files (file): #file'ı dizin içine kaydetme methodu
+#     number = random.randint(1, 100) 
+#     file_name, file_extension = os.path.splitext(file.name)
+#     new_name = file_name + "_" + str(number) + file_extension  #resim_0001.jpg
 
-    #deploy için temp/ ---> /home/kursapp/mysite29H/temp olarak değişmesi gerekiyor
-    with open("temp/" + new_name, "wb+") as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
+#     #deploy için temp/ ---> /home/kursapp/mysite29H/temp olarak değişmesi gerekiyor
+#     with open("temp/" + new_name, "wb+") as destination:
+#         for chunk in file.chunks():
+#             destination.write(chunk)
+
+
+
+
 
 def search(request):
     if "q" in request.GET and request.GET["q"] !="":

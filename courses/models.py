@@ -27,3 +27,7 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+    
+
+class UploadModel (models.Model):
+    image = models.ImageField(upload_to="images")
