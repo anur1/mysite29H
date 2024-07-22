@@ -15,9 +15,8 @@
                        <form action="{% url "upload_image" %}" method="POST" enctype = "multipart/form-data">
                         {% csrf_token %}
                                 <div class="input-group">
-                                        <input type="file" class="form-control" name="images" multiple="true">
-                                        <button class="btn btn-outline-secondary" type="submit">Yükle</button>
-                                </div>
+                                        {{form}}  {% comment %} views.py'den gönderilen uplaod formu {% endcomment %}
+                                        <button type="submit">Yükle</button>
                        </form>
                     </div>
                 </div>

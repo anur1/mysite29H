@@ -86,3 +86,15 @@ class CourseEditForm (forms.ModelForm):
         }
 
 
+class UploadForm(forms.Form):
+    image = forms.ImageField(
+                label = "Resim yükleyin", 
+                required= True, 
+                error_messages={"required": "resim yüklemelisiniz"}, 
+                widget = forms.FileInput(attrs={"class": "form-control"})
+        )
+
+
+    
+    
+

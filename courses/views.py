@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpRespons
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from courses.forms import CourseAddForm, CourseEditForm
+from courses.forms import CourseAddForm, CourseEditForm, UploadForm
 from .models import Course, Category
 from django.core.paginator import Paginator
 
@@ -82,12 +82,19 @@ def upload_image (request):
         #print(uploaded_image.name)
         #print(uploaded_image.size)
         #print(uploaded_image.content_type)
-        uploaded_images = request.FILES.getlist("images") #yüklenen dosyaların listesini al
-        for file in uploaded_images: 
-            handle_uploaded_files (file)
-        return render (request, "courses/success.html") #başarı mesajı
+        #uploaded_images = request.FILES.getlist("images") #yüklenen dosyaların listesini al
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_image=request.FILES["image"]
+            handle_uploaded_files (uploaded_image)
+
+            # for file in uploaded_images: 
+            #     handle_uploaded_files (file)
+            return render (request, "courses/success.html") #başarı mesajı
+    else:
+        form=UploadForm()
     
-    return render(request, "courses/upload-image.html")
+    return render(request, "courses/upload-image.html", {"form":form})
 
 
 def handle_uploaded_files (file): #file'ı dizin içine kaydetme methodu
