@@ -77,12 +77,14 @@ def course_delete (request, id):
 
 def upload_image (request):
     if request.method=="POST":
-        uploaded_image = request.FILES['image'] #request'ten forma eklenen "image" adlı dosyayı getir. 
+        #uploaded_image = request.FILES['image'] #request'ten forma eklenen "image" adlı dosyayı getir. 
         #print(uploaded_image)
         #print(uploaded_image.name)
         #print(uploaded_image.size)
         #print(uploaded_image.content_type)
-        handle_uploaded_files (uploaded_image)
+        uploaded_images = request.FILES.getlist("images") #yüklenen dosyaların listesini al
+        for file in uploaded_images: 
+            handle_uploaded_files (file)
         return render (request, "courses/success.html") #başarı mesajı
     
     return render(request, "courses/upload-image.html")
