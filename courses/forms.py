@@ -87,13 +87,18 @@ class CourseEditForm (forms.ModelForm):
 
 
 class UploadForm(forms.Form):
-    image = forms.ImageField(
+    # image = forms.ImageField(     IMAGE FIELD DEPLOY DA ÇALIŞMIYOR!!
+    #             label = "Resim yükleyin", 
+    #             required= True, 
+    #             error_messages={"required": "resim yüklemelisiniz"}, 
+    #             widget = forms.FileInput(attrs={"class": "form-control"})
+    #     )
+    image = forms.FileField(
                 label = "Resim yükleyin", 
                 required= True, 
                 error_messages={"required": "resim yüklemelisiniz"}, 
                 widget = forms.FileInput(attrs={"class": "form-control"})
         )
-
 
     
     
