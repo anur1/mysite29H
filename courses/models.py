@@ -14,7 +14,8 @@ class Category(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
-    imageUrl = models.CharField(max_length=50, blank=False)
+    #imageUrl = models.CharField(max_length=50, blank=False)
+    image = models.FileField(upload_to="images", default ="")  #yüklenen dosyaları uploads/images klasörüne kaydeder. ImageField çalışmazsa FileField kullanılabilir. 
     date = models.DateField(auto_now=True)
     isActive = models.BooleanField(default=False)
     isHome = models.BooleanField(default = False)
@@ -30,4 +31,4 @@ class Course(models.Model):
     
 
 class UploadModel (models.Model):
-    image = models.ImageField(upload_to="images")
+    image = models.FileField(upload_to="images")

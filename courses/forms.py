@@ -33,13 +33,13 @@ class CourseAddForm (forms.ModelForm):
         labels = {
             "title": "Kurs Başlığı",
             "description": "Kurs Açıklaması",
-            "imageUrl": "Resim Urlsi",
+            "image": "Resim dosyası",
             "slug": "Uzantı adı",
         }
         widgets = {
             "title": TextInput(attrs={"class":"form-control"}),
             "description": Textarea(attrs={"class":"form-control"}),
-            "imageUrl": TextInput(attrs={"class":"form-control"}),
+            #"imageUrl": TextInput(attrs={"class":"form-control"}),
             "slug": TextInput(attrs={"class":"form-control"}),
         }
         error_messages= {
@@ -63,13 +63,13 @@ class CourseEditForm (forms.ModelForm):
         labels = {
             "title": "Kurs Başlığı",
             "description": "Kurs Açıklaması",
-            "imageUrl": "Resim Urlsi",
+            "image": "Resim Urlsi",
             "slug": "Uzantı adı",
         }
         widgets = {
             "title": TextInput(attrs={"class":"form-control"}),
             "description": Textarea(attrs={"class":"form-control"}),
-            "imageUrl": TextInput(attrs={"class":"form-control"}),
+            #"imageUrl": TextInput(attrs={"class":"form-control"}),
             "slug": TextInput(attrs={"class":"form-control"}),
             "categories": SelectMultiple(attrs={"class":"form-control"}),
             #"isActive":    NullBooleanSelect(attrs={"class":"form-control"}),  

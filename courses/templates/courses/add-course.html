@@ -20,7 +20,7 @@
                         {% endif %}
 
 
-                        <form action="{% url 'add_course' %}" method="POST" novalidate>
+                        <form action="{% url 'add_course' %}" method="POST" novalidate enctype = "multipart/form-data">
                             {% csrf_token %}
 
 
