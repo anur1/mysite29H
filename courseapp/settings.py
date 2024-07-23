@@ -125,7 +125,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_ROOT = BASE_DIR / "uploads"
+MEDIA_ROOT = BASE_DIR / "uploads"     #dosyaların kaydedilme yeri
+
+MEDIA_URL = "/media/"                 #resimlerin gösterilme uzantısı
 
 #STATIC_ROOT = '/var/www/static'  veya  '/static' ardından mysite içinde python manage.py collectstatic
 

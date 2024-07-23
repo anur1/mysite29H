@@ -4,7 +4,7 @@
         <div class="col-4">
             <img
                 class="img-fluid rounded-start"
-                src="{% static 'courses/img/'|add:course.image %}"
+                src="{{course.image.url}}"
                 alt="course.title"
             />
         </div>
