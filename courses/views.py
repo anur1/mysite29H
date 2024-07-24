@@ -58,7 +58,7 @@ def course_edit (request, id):
         form = CourseEditForm(instance=course)
 
 
-    return render(request, 'courses/edit-course.html', {"form": form})
+    return render(request, 'courses/edit-course.html', {"form": form})   
 
 
 
