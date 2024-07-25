@@ -34,20 +34,40 @@
         </li>
     </ul>   
 
-<!--admin nav-->
+    <!--login-logout-register nav-->
     <ul class="navbar-nav me-1">
+
+        <!--giriş yapmış olanlar logout'u görür-->
+        {% if user.is_authenticated %}
+
+        <li class="nav-item"> 
+            <strong>
+            <a href="#" class="nav-link"style="color:green">Hoş Geldiniz, {{user.username}}</a>  </strong>    </li>
+        
+        <li class="nav-item"> <strong>
+
+            <a href="{% url "user_logout" %}" class="nav-link" style="color:red">Logout  </a>
+        </strong>
+        </li>
+        
+        <!--giriş yapmamış olanlar login veya register'ı görür-->
+        {% else %}
         <li class="nav-item">
-            <a href="{% url "user_login" %}" class="nav-link">Login</a>
+            <strong>
+            <a href="{% url "user_login" %}" class="nav-link" style="color:green">Login</a>
+            </strong>
         </li>
 
         <li class="nav-item">
-            <a href="{% url "user_register" %}" class="nav-link">Register</a>
+            <strong>            <a href="{% url "user_register" %}" class="nav-link" style="color:green">Register</a>
+            </strong>
         </li>
 
+        {% endif %}
+ 
 
-        <li class="nav-item">
-            <a href="{% url "user_logout" %}" class="nav-link">Logout  </a>
-        </li>
+
+ 
 
         <li class="nav-item">
             <a href="/admin" class="nav-link">Admin</a>

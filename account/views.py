@@ -1,7 +1,11 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def user_login (request,):
+    #kullanıcı henüz giriş yapmadı ise login sayfasına gitmesine gerek yok, index e gidebilir.
+    if request.user.is_authenticated: 
+        return redirect( "index")
+    
     if (request.method=="POST"):
         username = request.POST["username"]
         password = request.POST["password"]
@@ -17,6 +21,7 @@ def user_login (request,):
 def user_register (request,):
     return render (request, "account/register.html", )
 
-def user_logout (request,):  #cookies sil, anasayfaya yönlendir. 
+def user_logout (request,):  #logout yap, cookies sil, anasayfaya yönlendir. 
+    logout(request)
     return redirect ("index" )
 
