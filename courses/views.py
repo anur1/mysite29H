@@ -8,9 +8,10 @@ from .models import Course, Category, UploadModel
 from django.core.paginator import Paginator
 
 import random, os
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
-def index(request):
+def index(request):  #bütün kullanıcılara açık
     kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Category.objects.all()
 #    for kurs in db["courses"]:
@@ -22,7 +23,22 @@ def index(request):
     })
 
 
-def add_course(request, ):
+def isAdmin(user, ):
+    return user.is_superuser
+    
+
+
+#@login_required()  # bu method login gerektirir
+@user_passes_test(isAdmin) #isAdmin methodu yani superuser true geliyorsa, bu method çalışır, sıradan üyeler erişemez
+def add_course(request, ): #sadece admin'e açık
+
+    # #bu kontrolü artık decorator yapıyor
+    # #admin veya super user  değilse index'e gider
+    # if not request.user.is_authenticated: 
+    #     return redirect("index")
+    # if not request.user.is_superuser: 
+    #     return redirect("index")
+    
     if request.method == "POST": 
         form = CourseAddForm(request.POST, request.FILES)
 
@@ -40,6 +56,8 @@ def add_course(request, ):
 
     return render(request, "courses/add-course.html", {"form": form})
 
+
+@login_required()
 def course_list (request):
     kurslar = Course.objects.all()
 

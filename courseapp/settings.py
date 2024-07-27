@@ -136,3 +136,7 @@ MEDIA_URL = "/media/"                 #resimlerin gösterilme uzantısı
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = "/account/login"   #decorator'dan (ie:@login_required() ) login olmamış sayfalara her tıklandığında
+#ilk önce login olması için "next" url'si gönderilir. örnek: http://127.0.0.1:8000/account/login?next=/kurslar/add-course
+#loginden sonra sayfa otomatik yönlenir. 
