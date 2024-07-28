@@ -1,0 +1,14 @@
+<!--gelen request'te  hata mesajları varsa bunu sırası ile  yazdır-->
+{% if messages %}
+    <ul class= "messages">
+
+        {% for message in messages %}
+            <!--gelen mesajın tag bilgisi varsa, class bilgisini  ve mesajı al-->     
+            <li {% if messages.tags %} class="{{messages.tags}}"{% endif %}>
+                {{message}}
+            </li>
+        {% endfor %}
+
+    </ul>
+
+{% endif %}

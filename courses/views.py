@@ -10,8 +10,8 @@ from django.core.paginator import Paginator
 import random, os
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-
-def index(request):  #bütün kullanıcılara açık
+# no @decorator -> bütün kullanıcılara açık
+def index(request):  
     kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Category.objects.all()
 #    for kurs in db["courses"]:

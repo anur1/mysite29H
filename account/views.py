@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 def user_login (request,):
-    #kullanıcı henüz giriş yapmadı ise login sayfasına gitmesine gerek yok, index e gidebilir.
+    #kullanıcı super admin değilse, url'deki next çıkar. Yani kullanıcı yetkisizdir. 
     if request.user.is_authenticated and "next" in request.GET: 
         return render(request, "account/login.html", {"error":"username ya da password yetkisiz alana giremez!"})
     
@@ -11,8 +12,10 @@ def user_login (request,):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
+            messages.add_message(request, messages.SUCCESS, "giriş başarılı")
             #return redirect( "index"   )  next yoksa gitsin, varsa ilgili sayfaya gitsin
             nextUrl = request.GET.get("next", None)
             if nextUrl is None:
@@ -20,7 +23,8 @@ def user_login (request,):
             else: 
                 return redirect(nextUrl)
         else:
-            return render(request, "account/login.html", {"error":"username ya da password yanlış!"})
+            messages.add_message(request, messages.ERROR, "giriş başarısız, username ya da password yanlış")
+            return render(request, "account/login.html", )
     else:   
         return render (request, "account/login.html", )
 

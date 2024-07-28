@@ -18,9 +18,10 @@
                         <hr>
                         <form method="POST" action="">
                         {% csrf_token %}
-                        <!--hatalı giriş mesajı-->
+                        <!--hatalı giriş mesajı contrib.messages'a aktarıldı
+                        messages-> messages.html'den toptan kontrol ediliyor. layout.html'ye messages.html include eidliyor 
                         {% if error %} <div class="alert alert-danger">{{error}}</div>{% endif %}
-                       
+                         --> 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" name= "username" id="username" class= "form-control" required>
