@@ -57,6 +57,7 @@ def user_register (request,):
 
 
 def user_logout (request,):  #logout yap, cookies sil, anasayfaya yönlendir. 
+    messages.add_message(request, messages.SUCCESS,"Çıkış başarılı")
     logout(request)
     return redirect ("index" )
 

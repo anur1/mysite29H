@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,6 +138,18 @@ MEDIA_URL = "/media/"                 #resimlerin gösterilme uzantısı
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+#ÖZEL TANIMLAMALAR
+
 LOGIN_URL = "/account/login"   #decorator'dan (ie:@login_required() ) login olmamış sayfalara her tıklandığında
 #ilk önce login olması için "next" url'si gönderilir. örnek: http://127.0.0.1:8000/account/login?next=/kurslar/add-course
 #loginden sonra sayfa otomatik yönlenir. 
+
+MESSAGE_TAGS={   ##sayfaya gönderilen mesajların html class'ını bootstrap class'ları olarak ayarlamak için kullanılr
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS:"alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR:"alert-danger",
+}
