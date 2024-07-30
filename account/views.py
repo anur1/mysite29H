@@ -10,17 +10,17 @@ def user_login (request,):
         return render(request, "account/login.html", {"error":"username ya da password yetkisiz alana giremez!"})
     
     if request.method =="POST":
+        #Login formunu django builtin form'dan al.
         form = AuthenticationForm(request, data =request.POST)
-        
-        if form.is_valid():
-            #not: request.cleaned_data çalışmıyor. form.cleaned_data çalıştı. 
+        if form.is_valid():            #not: request.cleaned_data çalışmıyor. form.cleaned_data çalıştı. 
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
-        #Authentication Form kullanmadan önce..
-        # username = request.POST["username"]
-        # password = request.POST["password"]
-        # user = authenticate(request, username=username, password=password)
+            #Authentication Form kullanmadan önce bunları kullanıyorduk.
+            # username = request.POST["username"]
+            # password = request.POST["password"]
+            # user = authenticate(request, username=username, password=password)
+
             if user is not None:
                 login(request, user)
                 messages.add_message(request, messages.SUCCESS, "giriş başarılı")
@@ -31,12 +31,14 @@ def user_login (request,):
                 else: 
                     return redirect(nextUrl)
                 
-            else:
+            else: #kullanıcı None ise login formu login.html'ye gider.
                 return render(request, "account/login.html", {"form": form} )
-        else:
+            
+        else:# form valid değilse, login formu login.html'ye gider
             #messages.add_message(request, messages.ERROR, "giriş başarısız, username ya da password yanlış") bu hata mesajına artık gerek yok. form dan geliyor zaten
             return render(request, "account/login.html", {"form": form} )
-    else:   
+        
+    else:   #GET ile gelinmişse boş Login formu login.html'ye gönderilir
         form = AuthenticationForm()
         return render (request, "account/login.html", {"form": form})
 
