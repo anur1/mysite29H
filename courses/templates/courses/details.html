@@ -18,7 +18,7 @@
                     <div class="col-2" style="border:dashed; background-color:Lime">
 
                <!--     {% include 'courses/partials/_categories.html' %}-->
-               <img   class="img-fluid rounded"  src="{% static 'courses/img/'|add:course.imageUrl %}"      alt="course.title"   />
+               <img   class="img-fluid rounded"  src="{{course.image.url}}"      alt="course.title"   />
 
 
                        </div>

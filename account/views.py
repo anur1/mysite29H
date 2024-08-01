@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
+from account.forms import LoginUserForm
+
 def user_login (request,):
     #kullanıcı super admin değilse, url'deki next çıkar. Yani kullanıcı yetkisizdir. 
     if request.user.is_authenticated and "next" in request.GET: 
@@ -11,7 +13,8 @@ def user_login (request,):
     
     if request.method =="POST":
         #Login formunu django builtin form'dan al.
-        form = AuthenticationForm(request, data =request.POST)
+        #form = AuthenticationForm(request, data =request.POST)
+        form = LoginUserForm(request, data=request.POST) #LoginUserForm AuthenticationForm'dan türetilmiştir. 
         if form.is_valid():            #not: request.cleaned_data çalışmıyor. form.cleaned_data çalıştı. 
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get('password')
@@ -39,7 +42,8 @@ def user_login (request,):
             return render(request, "account/login.html", {"form": form} )
         
     else:   #GET ile gelinmişse boş Login formu login.html'ye gönderilir
-        form = AuthenticationForm()
+        #form = AuthenticationForm()
+        form = LoginUserForm()
         return render (request, "account/login.html", {"form": form})
 
 
