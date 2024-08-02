@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from account.forms import LoginUserForm
 
@@ -48,29 +48,62 @@ def user_login (request,):
 
 
 
+
+
 def user_register (request,):
     if request.method=="POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        repassword = request.POST["repassword"]
+        form = UserCreationForm (request.POST)
+        if form.is_valid():
+            form.save()
+            
+            #kişiyi kaydettikten sonra login olsun
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            user = authenticate(request, username = username, password = password)
+            login (request, user)
+            return redirect("index")
+        else:
+            return render(request, "account/register.html", {"form": form})
 
-        if password != repassword: 
-            return render (request, "account/register.html", {"error": "parlolalar eşleşmiyor", "username": username, "email": email})
-
-        if User.objects.filter(username= username).exists():
-                return render (request, "account/register.html", {"error": "aynı isimli bir kullanıcı daha var, başka bir isim seçiniz", "username": username, "email": email})
-        
-        if User.objects.filter(email=email).exists():
-            return render (request, "account/register.html", {"error": "aynı email adresli birisi daha var, başka bir email adresi giriniz..", "username": username, "email": email})
-
-        user = User.objects.create_user(username = username, email= email, password = password)
-        user.save()
-        return redirect("user_login")
 
 
     else:
-        return render (request, "account/register.html", )
+        form = UserCreationForm()
+        return render(request, "account/register.html", {"form": form})
+
+
+
+
+
+# built in formu kullanmadan önceki register formu
+# def user_register (request,):
+#     if request.method=="POST":
+#         username = request.POST["username"]
+#         email = request.POST["email"]
+#         password = request.POST["password"]
+#         repassword = request.POST["repassword"]
+
+#         if password != repassword: 
+#             return render (request, "account/register.html", {"error": "parlolalar eşleşmiyor", "username": username, "email": email})
+
+#         if User.objects.filter(username= username).exists():
+#                 return render (request, "account/register.html", {"error": "aynı isimli bir kullanıcı daha var, başka bir isim seçiniz", "username": username, "email": email})
+        
+#         if User.objects.filter(email=email).exists():
+#             return render (request, "account/register.html", {"error": "aynı email adresli birisi daha var, başka bir email adresi giriniz..", "username": username, "email": email})
+
+#         user = User.objects.create_user(username = username, email= email, password = password)
+#         user.save()
+#         return redirect("user_login")
+
+
+#     else:
+#         return render (request, "account/register.html", )
+
+
+
+
+
 
 
 
