@@ -31,8 +31,14 @@
                 <div class="col-9" style="border:dotted; background:#BE6EFD">
                 <!--Content-->
                         <h1 class="h3" >{{course.title}}  </h1>
-                        <p>{{course.description}}</p>
+                        <p>{{course.subtitle}}</p>
                 </div>
+                </div>
+                <div class="row">
+                        <div class="col-12">
+                                <p>{{course.description|safe}}</p>
+
+                        </div>
                 </div>
         </div>
 {% endblock  %}  
